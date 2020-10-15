@@ -66,8 +66,8 @@ namespace ZooApp
                 MessageBox.Show(e.ToString());
             }
         }
-
-        private void ShowAnimals()
+        //This is how we show associated data
+        private void ShowAssociatedAnimals()
         {
             //Always use Try&Catch functionality for sql connections so if any error should occur it doesnt crash or mix info ;D 
             try
@@ -110,7 +110,7 @@ namespace ZooApp
 
         private void zooList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowAnimals();
+            ShowAssociatedAnimals();
         }
     }
 }
