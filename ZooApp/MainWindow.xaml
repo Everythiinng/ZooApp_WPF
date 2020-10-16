@@ -24,7 +24,7 @@
                         <ListBox Height="200" Margin="0 10" x:Name="zooList" SelectionChanged="zooList_SelectionChanged">
 
                         </ListBox>
-                        <Button Content="Delete Zoo"/>
+                        <Button Content="Delete Zoo" Click="Delete_Zoo"/>
                     </StackPanel>
                     <!--Animals LB-->
                     <StackPanel Grid.Column="1" Margin="5 0">
@@ -32,11 +32,11 @@
                         <ListBox Height="200" Margin="0 10" x:Name="animalList">
 
                         </ListBox>
-                        <Button Content="Remove Animal"/>
+                        <Button Click="RemoveAnimalToZoo_Click" Content="Remove Animal"/>
                     </StackPanel>
                 </Grid>
                 <!--TextBox-->
-                <TextBox Margin="5 5" Padding="3"/>
+                <TextBox Margin="5 5" Padding="3" x:Name="TextBox"/>
                 <!--Buttons Below TextBox Add Zoo, Add Animal etc.-->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -44,22 +44,22 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="5 0">
-                        <Button Content="Add Zoo" Margin="0 0 0 5"/>
-                        <Button Content="Update Zoo" Margin="0"/>
+                        <Button Click="Add_Zoo" Content="Add Zoo" Margin="0 0 0 5"/>
+                        <Button Click="UpdateZoo_Click" Content="Update Zoo" Margin="0"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="5 0">
-                        <Button Content="Add Animal" Margin="0 0 0 5"/>
-                        <Button Content="Update Animal" Margin="0"/>
+                        <Button Click="Add_Animal" Content="Add Animal" Margin="0 0 0 5"/>
+                        <Button Click="UpdateAnimal_Click" Content="Update Animal" Margin="0"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
             <!--Add Animals To Zoo LB-->
             <StackPanel Grid.Column="1" Margin="5 0">
-                <Button Content="Add Animal To Zoo" Margin="0 5 0 0"/>
-                <ListBox Margin="0 11 0 0" Height="283">
+                <Button Click="AddAnimalToZoo_Click" Content="Add Animal To Zoo" Margin="0 5 0 0"/>
+                <ListBox Margin="0 11 0 0" Height="283" x:Name="animalShowLB">
 
                 </ListBox>
-                <Button Content="Delete Animal" Margin="0 4"/>
+                <Button Click="Delete_Animal" Content="Delete Animal" Margin="0 4"/>
             </StackPanel>
         </Grid>
     </Border>

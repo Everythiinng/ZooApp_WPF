@@ -56,6 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ZooAppDbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZooAppDbDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="_UdemySQLDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,6 +100,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ZooAppDbDataSet.xsc">
+      <DependentUpon>ZooAppDbDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ZooAppDbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ZooAppDbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ZooAppDbDataSet.xss">
+      <DependentUpon>ZooAppDbDataSet.xsd</DependentUpon>
     </None>
     <None Include="_UdemySQLDataSet.xsc">
       <DependentUpon>_UdemySQLDataSet.xsd</DependentUpon>
