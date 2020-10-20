@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,8 +12,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Data;
 using System.IO;
+using System.Data;
+using System;
+using System.Windows.Controls;
+using System.Data.SQLite;
+using System.Reflection;
 
 namespace ZooApp
 {
@@ -24,25 +26,46 @@ namespace ZooApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Project Name
+        string projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+
         //We must define the sqlConnection part so it creates a new connection when the program starts
         SqlConnection sqlConnection;
+        string connectionString;
+
+        //SQLite Connection
+        SQLiteConnection sqliteConnection;
+        SQLiteCommand sqliteCommand;
+        string sqliteConnectionString;
+
+        DbCreation_SQLite sqlite = new DbCreation_SQLite();
 
         public MainWindow()
         {
-            string connectionString;
+            //string connectionString;
             InitializeComponent();
             //We use ConnectionString to Define where to connect to, <using System.Configuration|| We add this in References.
             //Then we write this down and in "" We write the Project Name.Properties.Settings.<In here we write the name of the database> and so forth.
-            if(System.IO.Path.GetFileName("C:/Users/Arbnor").Equals("Arbnor"))
+            if (System.IO.Directory.Exists("C:/Users/Arbnor"))
                 connectionString = ConfigurationManager.ConnectionStrings["ZooApp.Properties.Settings.ZooAppDbConnectionString"].ConnectionString;
             else
                 connectionString = ConfigurationManager.ConnectionStrings["ZooApp.Properties.Settings._UdemySQLConnectionString"].ConnectionString;
 
-            //and we initialize it and add the connection string so everytime the connection starts and gets inicialized it knows where to connect to.
+            //SQLite
+            sqliteConnectionString = System.Environment.CurrentDirectory + "\\DB\\" + projectName;
+            sqlite.createDbFile(projectName);
+            sqliteConnection = new SQLiteConnection(sqliteConnectionString);
+
+            //SQL
             sqlConnection = new SqlConnection(connectionString);
+
+            //and we initialize it and add the connection string so everytime the connection starts and gets inicialized it knows where to connect to.
+            //sqlConnection = new SqlConnection(connectionString);
             ShowZoos();
             ShowAnimals();
         }
+
+
 
         private void ShowZoos()
         {
@@ -67,12 +90,11 @@ namespace ZooApp
                     zooList.ItemsSource = zooTable.DefaultView;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
         }
-
         private void ShowAnimals()
         {
             //Always use Try&Catch functionality for sql connections so if any error should occur it doesnt crash or mix info ;D 
@@ -190,6 +212,11 @@ namespace ZooApp
         {
             try
             {
+                string location = TextBox.Text;
+                sqliteCommand = new SQLiteCommand("insert into Zoo (Location) values (?)", sqliteConnection);
+                sqliteCommand.Parameters.Add(;
+                sqliteCommand.ExecuteNonQuery();
+
                 string query = "insert into Zoo values (@Location)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
                 sqlConnection.Open();
