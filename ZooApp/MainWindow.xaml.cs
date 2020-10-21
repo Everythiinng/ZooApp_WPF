@@ -18,6 +18,7 @@ using System;
 using System.Windows.Controls;
 using System.Data.SQLite;
 using System.Reflection;
+using System.Threading;
 
 namespace ZooApp
 {
@@ -27,7 +28,7 @@ namespace ZooApp
     public partial class MainWindow : Window
     {
         //Project Name
-        string projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+        public static string projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
 
         //We must define the sqlConnection part so it creates a new connection when the program starts
         SqlConnection sqlConnection;
@@ -38,7 +39,11 @@ namespace ZooApp
         SQLiteCommand sqliteCommand;
         string sqliteConnectionString;
 
+        //Using sqlite class to create various stuff
         DbCreation_SQLite sqlite = new DbCreation_SQLite();
+
+        //Check internet connection class
+        CheckInternet checkInternet;
 
         public MainWindow()
         {
@@ -212,7 +217,6 @@ namespace ZooApp
         {
             try
             {
-                string location = TextBox.Text;
                 sqliteCommand = new SQLiteCommand("insert into Zoo (Location) values (@Location)", sqliteConnection);
                 sqliteConnection.Open();
                 sqliteCommand.Parameters.AddWithValue("@Location", TextBox.Text);
@@ -220,7 +224,8 @@ namespace ZooApp
 
                 string query = "insert into Zoo values (@Location)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                sqlConnection.Open();
+                sqlConnection.Open(); 
+
                 sqlCommand.Parameters.AddWithValue("@Location", TextBox.Text);
                 sqlCommand.ExecuteScalar();
             }
@@ -343,6 +348,13 @@ namespace ZooApp
                 ShowAssociatedAnimals();
                 TextBox.Clear();
             }
+        }
+        private void Check_Internet(object sender, RoutedEventArgs e)
+        {
+            if (CheckInternet.IsInternetAvailable())
+                internetLabel.Content = "Internet Available";
+            else
+                internetLabel.Content = "Check Internet";
         }
     }
 }

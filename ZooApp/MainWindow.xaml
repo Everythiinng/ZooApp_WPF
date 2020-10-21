@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZooApp"
         mc:Ignorable="d"
-        Title="ZooApp" Height="450" Width="500">
+        Title="ZooApp" Height="500" Width="500">
     <Border Padding="40 30">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -46,10 +46,12 @@
                     <StackPanel Grid.Column="0" Margin="5 0">
                         <Button Click="Add_Zoo" Content="Add Zoo" Margin="0 0 0 5"/>
                         <Button Click="UpdateZoo_Click" Content="Update Zoo" Margin="0"/>
+                        <Button Click="Check_Internet" Content="Check Internet" Margin="0 5 0 0"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="5 0">
                         <Button Click="Add_Animal" Content="Add Animal" Margin="0 0 0 5"/>
                         <Button Click="UpdateAnimal_Click" Content="Update Animal" Margin="0"/>
+                        <Label x:Name="internetLabel" Margin="0 0 0 0" Content="Check internet please!"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,20 +12,23 @@ namespace ZooApp
 {
     public class DbCreation_SQLite
     {
+        //Project Name
+        string projectName { get { return ZooApp.MainWindow.projectName; } }
+
+
         SQLiteConnection dbConnection;
         SQLiteCommand command;
         string sqlCommand;
         string dbPath = System.Environment.CurrentDirectory + "\\DB";
         string dbFilePath;
-        //Project Name
-        string projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
 
         public void createDbFile(string name)
         {
             if (!string.IsNullOrEmpty(dbPath) && !Directory.Exists(dbPath))
                 Directory.CreateDirectory(dbPath);
-            //Change the ZooApp.db Name to the database you want to use.
+
             dbFilePath = dbPath + "\\" + name + ".db";
+
             if (!System.IO.File.Exists(dbFilePath))
             {
                 SQLiteConnection.CreateFile(dbFilePath);
