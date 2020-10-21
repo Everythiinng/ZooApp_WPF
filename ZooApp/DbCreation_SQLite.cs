@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace ZooApp
         string sqlCommand;
         string dbPath = System.Environment.CurrentDirectory + "\\DB";
         string dbFilePath;
+        //Project Name
+        string projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
 
         public void createDbFile(string name)
         {
@@ -66,7 +69,7 @@ namespace ZooApp
 
         public bool checkIfExist(string tableName)
         {
-            command.CommandText = "SELECT name FROM sqlite_master WHERE name='" + tableName + "'";
+            command.CommandText = "SELECT name FROM " + projectName + " WHERE name='" + tableName + "'";
             var result = command.ExecuteScalar();
 
             return result != null && result.ToString() == tableName ? true : false;

@@ -52,7 +52,7 @@ namespace ZooApp
                 connectionString = ConfigurationManager.ConnectionStrings["ZooApp.Properties.Settings._UdemySQLConnectionString"].ConnectionString;
 
             //SQLite
-            sqliteConnectionString = System.Environment.CurrentDirectory + "\\DB\\" + projectName;
+            sqliteConnectionString = "Data Source=" + System.Environment.CurrentDirectory + "\\DB\\" + projectName + ".db;";
             sqlite.createDbFile(projectName);
             sqliteConnection = new SQLiteConnection(sqliteConnectionString);
 
@@ -213,8 +213,9 @@ namespace ZooApp
             try
             {
                 string location = TextBox.Text;
-                sqliteCommand = new SQLiteCommand("insert into Zoo (Location) values (?)", sqliteConnection);
-                sqliteCommand.Parameters.Add(;
+                sqliteCommand = new SQLiteCommand("insert into Zoo (Location) values (@Location)", sqliteConnection);
+                sqliteConnection.Open();
+                sqliteCommand.Parameters.AddWithValue("@Location", TextBox.Text);
                 sqliteCommand.ExecuteNonQuery();
 
                 string query = "insert into Zoo values (@Location)";
@@ -229,6 +230,7 @@ namespace ZooApp
             }
             finally
             {
+                sqliteConnection.Close();
                 sqlConnection.Close();
                 ShowZoos();
                 TextBox.Clear();
